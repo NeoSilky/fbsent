@@ -1,0 +1,22 @@
+{
+  "name": "fbsent",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "mongod --dbpath data/db/ && node app.js"
+  },
+  "dependencies": {
+    "express": "latest",
+    "mongoose": "latest",
+    "passport":"latest",
+    "cors":"latest",
+    "body-parser":"latest",
+    "cookie-parser":"latest",
+    "express-session":"latest",
+    "passport-facebook":"latest",
+    "sentiment":"latest",
+    "bson":"latest",
+    "nodemon":"latest",
+    "fb":"latest"	    
+  }
+}
