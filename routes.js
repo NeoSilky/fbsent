@@ -89,7 +89,6 @@ module.exports = function(express, app, passport) {
   });
 
   router.get('/account', ensureAuthenticated, function(req, res){
-    console.log("Got to account");
     User.findById(req.session.passport.user, function(err, user) {
       if(err) { 
         	console.log(err); 
