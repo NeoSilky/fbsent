@@ -34,6 +34,7 @@ module.exports = function(express, app, passport) {
     var array = {
       titles: ["Date", "Score"],
       data:[
+        ["Date", "Score"],
         ["23/02",2],
         ["25/02",1],
         ["28/02",6]
