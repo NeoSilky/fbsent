@@ -5,7 +5,7 @@
 <body>
 <script src="res/jquery.js"></script>
 <script>
-	$.get("http://localhost/friends", function( data ) {
+	$.get("http://brumhack.daniellockyer.com/friends", function( data ) {
   		console.log(data);
 
   		for(var i = 0; i < data.length; i++) {
@@ -16,7 +16,7 @@
 	  $(document).on('click', "a#person", function(e) {
             e.preventDefault();
             
-            $.post("http://localhost/analysis",{ id: $(this).attr("link") }, function( data ) {
+            $.post("http://brumhack.daniellockyer.com/analysis",{ id: $(this).attr("link") }, function( data ) {
 		  		console.log(data);
 			});
         });

@@ -55,6 +55,7 @@ module.exports = function(express, app, passport) {
                 thread_id: data_pos.id,
                 friend_id: friend_details.id,
                 friend_name: friend_details.name,
+		updated_time: data_pos.updated_time,
                 count: data_pos.message_count
               });
           }
