@@ -30,6 +30,16 @@ module.exports = function(express, app, passport) {
     });
   });
 
+  router.get('/getData', function(req, res) {
+    var array = [];
+    array['titles'] = ["Date", "Score"];
+    array['data'] = [];
+    array['data'].push({date:"23/02",score:2});
+    array['data'].push({date:"25/02",score:1});
+    array['data'].push({date:"28/02",score:6});
+    res.send(array);
+  });
+
   router.get('/friends', ensureAuthenticated, function(req, res){
     User.findById(req.session.passport.user, function(err, user) {
       if (err){
