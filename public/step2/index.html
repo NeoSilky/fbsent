@@ -23,14 +23,14 @@
 
 	.tt-dropdown-menu {
 	  width: 513px;
-	  margin-top: 4px;
-	  padding: 4px 0;
+	  margin-top: 0px;
+	  padding: 0px 0;
 	  background-color: #344972;
 	  border: 1px solid #ccc;
 	  border: 1px solid rgba(0, 0, 0, 0.2);
-	  -webkit-border-radius: 4px;
-	     -moz-border-radius: 4px;
-	          border-radius: 4px;
+	  -webkit-border-radius: 2px;
+	     -moz-border-radius: 2px;
+	          border-radius: 2px;
 	  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
 	     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
 	          box-shadow: 0 5px 10px rgba(0,0,0,.2);
@@ -52,14 +52,31 @@
 
 <body>
 	<CENTER><br><br><br><br><br><br><h1>With who would you like <br>to explore your relationship?</h1>
-	<input class="typeahead" type="text" id="textEntry" placeholder="Search Friends" width:600; height:100;>
-	<div id="responseBox"></div>
+	<input class="typeahead" type="text" id="textEntry" placeholder="Search Friends">
+	<div id="responseBox" style="height:59px;"></div>
 	</CENTER>
 	<script src="../res/jquery.js"></script>
 	<script src="../res/typeahead.js"></script>
+
 	<script>
-	var namesList = ['Jerry', 'Jet', 'Simon','John'];
+	//profile.id:firstname:lastname
+	var userList = [][];
+	//jet
+	userList[0][0] = 100001181576476;
+	userList[0][1] = "Jet";
+	userList[0][2] = "Holt";
+	//dan
+	userList[1][0] = 1289850321;
+	userList[1][1] = "Daniel";
+	userList[1][2] = "Lockyer";
 	//getFriendsList();
+
+	var namesList = [];
+	for(int i = 0; i < userList.length(); i++){
+		namesList[i] = userList[i][1] + " " + userList[i][2];
+	}
+	document.getElementById("responseBox").value = namesList[1];
+	document.getElementById("responseBox").innerText = "hi";
 
 	var substringMatcher = function(strs) {
 		return function findMatches(q, cb) {
