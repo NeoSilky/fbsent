@@ -40,6 +40,10 @@ module.exports = function(express, app, passport) {
         ["28/02",6]
       ]
     };
+
+    for(var i = 0; i < 10;i++) {
+      array.data.push([i+"/02", i]);
+    }
     res.send(array);
   });
 
