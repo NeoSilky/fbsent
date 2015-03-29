@@ -95,17 +95,15 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
           res.send([]);
           return;
         }
-        var array       =   "";
+   //     var array       =   "";
         var data = [];
         var next = "";
 
-        console.log(r.messages.data.length);
-
         for (var i = 0; i < r.messages.data.length; i++) { 
-          array += r.messages.data[i].message + " ";
+          //array += r.messages.data[i].message + " ";
           data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
         }
-        data.reverse();
+        //data.reverse();
         res.send([["Date", "Score"]].concat(data));
         });   
         }
