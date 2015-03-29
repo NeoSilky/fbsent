@@ -8,6 +8,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var logger = require('morgan');
 
 //Connect to the database
 mongoose.connect('mongodb://localhost/passport-example');
@@ -18,7 +19,7 @@ require('./passport.js')(passport);
 app.use(cors());
 app.use(cookieParser('supersecretsessions'));
 app.use(bodyParser.json());
-app.use(express.logger('dev'));
+app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(session({ 
