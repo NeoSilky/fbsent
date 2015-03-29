@@ -121,6 +121,6 @@ module.exports = function(express, app, passport) {
 }
 
 function ensureAuthenticated(req, res, next) {
-  	if (req.isAuthenticated()) { return next(); }
+  	if (req.isAuthenticated() && req.session.passport.user) { return next(); }
   	res.redirect('/');
 }
