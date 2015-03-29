@@ -27,11 +27,7 @@ module.exports = function(express, app, passport) {
     res.redirect('/');
 });
 
-  router.get('/auth', function(req, res, next) {
-    console.log(req.isAuthenticated());
-    if(!req.isAuthenticated()) return next(); 
-    res.redirect("/step2");
-  }, passport.authenticate('facebook',  { scope: 'read_mailbox' }));
+  router.get('/auth', passport.authenticate('facebook',  { scope: 'read_mailbox' }));
 
   router.get('/auth/callback', passport.authenticate('facebook', { 
   	successRedirect: '/step2',
