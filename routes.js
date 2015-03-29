@@ -100,7 +100,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         var next = "";
 
         for (var i = 0; i < r.messages.data.length; i++) {
-          console.log(r);
+          console.log(r.messages.paging.next);
 
           //array += r.messages.data[i].message + " ";
           data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
