@@ -56,6 +56,10 @@ module.exports = function(express, app, passport) {
         FB.api('/me/threads?limit=200', 'GET', {fields: 'id,message_count,updated_time,participants'}, function(r) {
           var text=[];
 
+          if(!r || !r.data) {
+            return res.send([]);
+          }
+
           for (var i = 0; i < r.data.length; i++) { 
             if(r.data[i].participants.data.length > 2) continue;
 
