@@ -21,10 +21,10 @@ module.exports = function(passport) {
     function(req, token, refreshToken, profile, done) {
         process.nextTick(function() {
             User.findOrCreate(
-                { user.oauthID : profile.id },
-                { user.token : token },
-                { user.name : profile.displayName },
-                { user.created : Date.now() }
+                { oauthID : profile.id },
+                { token : token },
+                { name : profile.displayName },
+                { created : Date.now() }
             ).success(function(user) {
             done(null, user);
             }).error(function(err) {  
