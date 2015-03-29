@@ -51,7 +51,7 @@
 </head>
 
 <body>
-	<CENTER><br><br><br><br><br><br><h1>With who would you like <br>to explore your relationship?</h1>
+	<CENTER><br><br><br><br><br><br><h1>With whom would you like <br>to explore your relationship?</h1>
 	<input class="typeahead" type="text" id="textEntry" placeholder="Search Friends" style="width:600; height:100;">
 	<div id="responseBox"></div>
 	</CENTER>
@@ -104,7 +104,7 @@
 		}
 
 		function submit(){
-			var text = document.getElementById("textEntry").innerHTML;
+			var text = document.getElementById("textEntry").innerText;
 
 			console.log(text);
 
