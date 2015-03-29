@@ -44,6 +44,8 @@ module.exports = function(express, app, passport) {
 
   router.get('/friends', ensureAuthenticated, function(req, res){
     User.findById(req.session.passport.user, function(err, user) {
+      console.log(req.session.passport.user);
+
       if (err){
         res.send(err);
         return;
@@ -63,9 +65,13 @@ module.exports = function(express, app, passport) {
           for (var i = 0; i < r.data.length; i++) { 
             if(r.data[i].participants.data.length > 2) continue;
 
+            console.log(r);
+            console.log(r.data[i]);
+
             var index           = (r.data[i].participants.data[0].id == user.oauthID) ? 1 : 0;
             var data_pos        = r.data[i];
             var friend_details  = data_pos.participants.data[index];
+
             text.push({
               thread_id: data_pos.id,
               friend_id: friend_details.id,
