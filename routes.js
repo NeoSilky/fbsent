@@ -64,9 +64,9 @@ module.exports = function(express, app, passport) {
 
           for (var i = 0; i < r.data.length; i++) { 
             if(r.data[i].participants.data.length > 2) continue;
+            if(!r.data[i].participants) continue;
 
-            console.log(r);
-            console.log(r.data[i]);
+            console.log(r.data[i].participants);
 
             var index           = (r.data[i].participants.data[0].id == user.oauthID) ? 1 : 0;
             var data_pos        = r.data[i];
