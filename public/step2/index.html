@@ -109,7 +109,7 @@
 
 			if(namesList.indexOf(text) == -1) return;
 
-			$.post("http://brumhack.daniellockyer.com/ana", { name: text, id: reference_list[text] }, function(res) {
+			$.get("http://brumhack.daniellockyer.com/ana", { name: text, id: reference_list[text] }, function(res) {
 				console.log(res);
 			});
 		}
