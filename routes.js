@@ -89,8 +89,6 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       FB.setAccessToken(user.token);
 
       FB.api('/'+req.body.id,'GET', function(r) {
-        console.log(r);
-
         if(!r.messages) {
           res.send([]);
           return;
