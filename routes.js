@@ -83,7 +83,7 @@ module.exports = function(express, app, passport) {
     });
   });
 
-  router.post('/analysis', ensureAuthenticated, function(req, res){
+  router.post('/analyse', ensureAuthenticated, function(req, res){
     User.findById(req.session.passport.user, function(err, user) {
       if (err){
         res.send(err);
