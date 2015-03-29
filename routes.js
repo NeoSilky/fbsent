@@ -100,7 +100,6 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
 
         });   
         }
-    }
   });
 });
 
