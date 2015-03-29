@@ -103,6 +103,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var processing = 0, done = 0;
 
         function parseData(r) {
+            console.log(data.length);
             console.log(r);
             for (var i = 0; i < r.messages.data.length; i++) {
                 count++;
@@ -128,8 +129,6 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
                 res.send([["Date", "Score"]].concat(data));
             }
         }
-
-        console.log(resp);
 
         parseData(resp);
     });   
