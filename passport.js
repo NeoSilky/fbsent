@@ -20,16 +20,27 @@ module.exports = function(passport) {
     },
     function(req, token, refreshToken, profile, done) {
         process.nextTick(function() {
-            User.findOrCreate(
-                { oauthID : profile.id },
-                { token : token },
-                { name : profile.displayName },
-                { created : Date.now() }
-            ).success(function(user) {
-            done(null, user);
-            }).error(function(err) {  
-            done(err);
-            });
+           var query = User.findOne({ 'oauthID': profile.id });
+              query.exec(function (err, oldUser) {
+                console.log(oldUser);
+                if(oldUser) {
+                  console.log('User: ' + oldUser.name + ' found and logged in!');
+                  done(null, oldUser);
+                } else {
+                  var newUser = new User();
+                  newUser.oauthID = profile.id;
+                  newUser.token = token;
+                  newUser.name = profile.displayName;
+                  newUser.created = Date.now();
+
+                  newUser.save(function(err) {
+                    if(err) {throw err;}
+                    console.log('New user: ' + newUser.name + ' created and logged in!');
+                    done(null, newUser);
+                  }); 
+                }
+              });
+            
 
             /*if (!req.user) {
                 User.findOne({ 'oauthID' : profile.id }, function(err, user) {
