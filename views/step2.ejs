@@ -106,14 +106,9 @@
 
 		function submit(){
 			var text = document.getElementById("textEntry").value;
-
 			if(namesList.indexOf(text) == -1) return;
 
-			window.location = "http://brumhack.daniellockyer.com/step3/"+ reference_list[text];
-
-/*			$.get("http://brumhack.daniellockyer.com/step3/"+ reference_list[text], function(r) {
-				console.log(r);
-			});*/
+			window.location = "http://brumhack.daniellockyer.com/step3/"+ reference_list[text]
 		}
 
 		getFriendsList();
