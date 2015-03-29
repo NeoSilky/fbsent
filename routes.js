@@ -65,7 +65,7 @@ module.exports = function(express, app, passport) {
     });
   });
 
-  router.post('/analyse', ensureAuthenticated, function(req, res){
+  router.get('/analyse', ensureAuthenticated, function(req, res){
     User.findById(req.session.passport.user, function(err, user) {
       if (err){
         res.send(err);
@@ -75,6 +75,9 @@ module.exports = function(express, app, passport) {
       if (user) {
         var FB = require('fb');
         FB.setAccessToken(user.token);
+
+        console.log(req);
+        console.log(req.body);
 
         FB.api('/'+req.body.id,'GET',function(r) {
           var array       =   "";
