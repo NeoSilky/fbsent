@@ -89,13 +89,11 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         var data = [["Date", "Score"]];
         var next = "";
 
-        if(r.paging.next) {
+        if(r.paging && r.paging.next) {
           request(r.paging.next, function (error, response, body) {
             if (!error && response.statusCode == 200) {
               console.log(body); 
             }
-
-
           });
         }
 
