@@ -103,15 +103,13 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var processing = 0, done = 0;
 
         function parseData(r) {
-            console.log(data.length);
-            console.log(r);
-            for (var i = 0; i < r.messages.data.length; i++) {
+            for (var i = 0; i < r.data.length; i++) {
                 count++;
-                data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
+                data.push([r.data[i].created_time,sentiment(r.data[i].message).score]);
 
-                if(r.messages.data && r.messages.paging.next) {
+                if(r.paging && r.paging.next) {
                   processing++;
-                  traverse(r.messages.paging.next);
+                  traverse(r.paging.next);
                 }
             }
         }
@@ -130,7 +128,15 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
             }
         }
 
-        parseData(resp);
+        for (var i = 0; i < resp.messages.data.length; i++) {
+            count++;
+            data.push([resp.messages.data[i].created_time,sentiment(resp.messages.data[i].message).score]);
+
+            if(resp.messages.data && resp.messages.paging.next) {
+                  processing++;
+                  traverse(resp.messages.paging.next);
+            }
+        }
     });   
   }
 });
