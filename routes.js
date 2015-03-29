@@ -97,7 +97,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       }
 
       var data = [];
-      var TARGET = 25;
+      var TARGET = 50;
       var count = 0;
       var processing = 0, done = 0;
 
@@ -119,8 +119,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
                 done++;
             });
 
-            if(count > TARGET){
-                console.log(data.length);
+            if(count > TARGET && processing == done){
                 return res.send([["Date", "Score"]].concat(data));
             }
         }
@@ -131,7 +130,6 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
 
             if(resp.messages.data && resp.messages.paging.next) {
                   processing++;
-                  console.log(resp.messages.paging.next);
                   traverse(resp.messages.paging.next);
             }
         }
