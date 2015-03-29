@@ -54,6 +54,7 @@
 
 	    function getData(){
 	    	$.post('http://brumhack.daniellockyer.com/analyse', {id: "<%= threadId %>"}, function(r) {
+          console.log(r);
 				  array = r;
 				  drawChart();
 	    	});
