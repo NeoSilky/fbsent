@@ -100,14 +100,12 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         for(var times = 0; times < 5; times++) {
           for (var i = 0; i < r.messages.data.length; i++) { 
             array += r.messages.data[i].message + " ";
-            console.log(r.messages.data[i]);
+            data.push([r.messages.data[i].created_time,times*times]);
           }
-          //var r1 = sentiment(array);
-          data.push([times,times*times]);
+          var r1 = sentiment(array);
+          console.log(r1);
         }
-
         res.send(data);
-
         });   
         }
   });
