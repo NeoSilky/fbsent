@@ -109,9 +109,7 @@
 
 			if(namesList.indexOf(text) == -1) return;
 
-			$.get("http://brumhack.daniellockyer.com/ana", { name: text, id: reference_list[text] }, function(res) {
-				console.log(res);
-			});
+			window.location = "/step3?" + reference_list[text];
 		}
 
 		getFriendsList();

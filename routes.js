@@ -90,13 +90,6 @@ module.exports = function(express, app, passport) {
     });
   });
 
-  router.get('/ana', ensureAuthenticated, function(req, res, next) {
-    req.dataProcessed = req.body;
-    return next();
-  }, function(req, res) {
-    res.location("/step3");
-  });
-
   router.get('/account', ensureAuthenticated, function(req, res){
     User.findById(req.session.passport.user, function(err, user) {
       if(err) { 

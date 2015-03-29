@@ -37,10 +37,13 @@
         getData();
 
 	    function getData(){
-	    	$.get('http://brumhack.daniellockyer.com/analysis', function(r) {
+        var a = location.href; 
+        var b = a.substring(a.indexOf("?")+1);
+
+	    	$.get('http://brumhack.daniellockyer.com/analyse?'+b, function(r) {
 	    		console.log(data);
-				array = r.data;
-				drawChart();
+				  array = r.data;
+				  drawChart();
 	    	});
 		}
     </script>
