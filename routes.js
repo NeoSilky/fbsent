@@ -90,8 +90,8 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var FB = require('fb');
       FB.setAccessToken(user.token);
 
-      FB.api('/'+req.body.id,'GET', function(r) {
-        if(!r.messages) {
+      FB.api('/'+req.body.id,'GET', function(resp) {
+        if(!resp.messages) {
           res.send([]);
           return;
       }
@@ -128,9 +128,9 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
             }
         }
 
-        console.log(r);
+        console.log(resp);
 
-        parseData(r);
+        parseData(resp);
     });   
   }
 });
