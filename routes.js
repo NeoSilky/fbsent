@@ -90,7 +90,7 @@ module.exports = function(express, app, passport) {
     });
   });
 
-  router.post('/ana', ensureAuthenticated, function(req, res, next) {
+  router.get('/ana', ensureAuthenticated, function(req, res, next) {
     req.dataProcessed = req.body;
     return next();
   }, function(req, res) {
