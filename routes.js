@@ -97,7 +97,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       }
 
       var data = [];
-      var TARGET = 50;
+      var TARGET = 500;
       var count = 0;
       var completed = false;
       var processing = 0, done = 0;
@@ -120,8 +120,8 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
                 done++;
             });
 
-            if(!completed && (count > TARGET || processing == done)){
-              completed = true;
+            if(!completed && (count > TARGET)){
+                completed = true;
                 return res.send([["Date", "Score"]].concat(data));
             }
         }
