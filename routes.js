@@ -88,7 +88,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var FB = require('fb');
       FB.setAccessToken(user.token);
 
-      FB.api('/'+req.body.id+"?limit=1000",'GET', function(r) {
+      FB.api('/'+req.body.id+"?until=2011-05-01",'GET', function(r) {
 
         if(!r.messages) {
           res.send([]);
