@@ -10,7 +10,7 @@ module.exports = function(express, app, passport) {
     res.render('step1');
 });
 
-  router.get('/step2',ensureAuthenticated, function(req, res) {
+  router.get('/step2', ensureAuthenticated, function(req, res) {
     res.render('step2');
 });
 
@@ -28,11 +28,9 @@ module.exports = function(express, app, passport) {
 });
 
   router.get('/auth', function(req, res, next) {
-    if(req.isAuthenticated()) {
-      return res.redirect("/step2"); 
-    } else {
-      next();
-    }
+    console.log(req.isAuthenticated());
+    if(!req.isAuthenticated()) return next(); 
+    res.redirect("/step2");
   }, passport.authenticate('facebook',  { scope: 'read_mailbox' }));
 
   router.get('/auth/callback', passport.authenticate('facebook', { 
