@@ -13,7 +13,7 @@ module.exports = function(express, app, passport) {
     res.render('step2');
   });
 
-  router.post('/step3', ensureAuthenticated, function(req, res) {
+  router.get('/step3', ensureAuthenticated, function(req, res) {
     res.render('step3', { threadId: req.body.id });
   });
 
