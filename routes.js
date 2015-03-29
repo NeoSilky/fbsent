@@ -88,7 +88,8 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var FB = require('fb');
       FB.setAccessToken(user.token);
 
-      FB.api('/'+req.body.id+"?until=2011-05-01",'GET', function(r) {
+      FB.api('/'+req.body.id,'GET', function(r) {
+        console.log(r);
 
         if(!r.messages) {
           res.send([]);
@@ -98,20 +99,10 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         var data = [["Date", "Score"]];
         var next = "";
 
-    /*    if(r.paging && r.paging.next) {
-          request(r.paging.next, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-              console.log(body); 
-            }
-          });
+        for (var i = 0; i < r.messages.data.length; i++) { 
+          array += r.messages.data[i].message + " ";
+          data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
         }
-*/
-//        for(var times = 0; times < 5; times++) {
-          for (var i = 0; i < r.messages.data.length; i++) { 
-            array += r.messages.data[i].message + " ";
-            data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
-          }
-  //      }
         res.send(data);
         });   
         }
