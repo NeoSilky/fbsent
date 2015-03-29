@@ -32,13 +32,12 @@
                 showTextEvery: showEvery,
                 direction:-1,
                 slantedText:true,
-                slantedTextAngle:90
+                slantedTextAngle:45
               },
           		legend: { position: 'bottom' }
         	};
 
         	var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
         	chart.draw(data, options);
         }
 
