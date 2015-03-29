@@ -84,6 +84,9 @@ module.exports = function(express, app, passport) {
   });
 
   router.post('/analyse', ensureAuthenticated, function(req, res){
+    res.redirect("/step3");
+    return;
+
     User.findById(req.session.passport.user, function(err, user) {
       if (err){
         res.send(err);
