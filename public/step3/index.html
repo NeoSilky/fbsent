@@ -5,10 +5,63 @@
 	<style>
 		html, body {width:100%;height:100%;overflow: hidden;margin:0;padding:0;}
 		body { background: #3B5997; box-shadow: inset 0 0 20em 1em #444; }
-		h1{font-size:50px; font-family:"Arial"; color: white;}
+
+		div{
+		    position: absolute;
+		    margin: auto;
+		    top: 0;
+		    left: 0;
+		    right: 0;
+		    bottom: 0;
+		}
 	</style>
+
+	<script type="text/javascript"
+          src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart']
+            }]
+          }"></script>
+
+    <script type="text/javascript">
+    	var array = [];
+    	getData();
+
+      	google.setOnLoadCallback(drawChart);
+
+      	function drawChart() {
+        	var data = google.visualization.arrayToDataTable(array);
+
+        	var options = {
+          		title: 'Score Over Time',
+          		curveType: 'function',
+          		legend: { position: 'bottom' }
+        	};
+
+        	var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        	chart.draw(data, options);
+        }
+
+    function getData(){
+		var http = new XMLHttpRequest();
+		var url = "http://brumhack.daniellockyer.com/getData";
+		http.open("GET", url, true);
+
+		http.onreadystatechange = function() {
+			if(http.readyState == 4 && http.status == 200) {
+				array = JSON.parse(http.responseText).data;
+				drawChart();
+			}
+		}
+		http.send();
+	}
+    </script>
+
 </head>
 <body>
-	<CENTER><br><br><br><br><br><br><br><br><br><h1>LOADING</h1></CENTER>
+	<div id="curve_chart" style="width: 700px; height: 400px"></div>
 </body>
 </html>
