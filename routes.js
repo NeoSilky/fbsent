@@ -77,8 +77,13 @@ module.exports = function(express, app, passport) {
         FB.setAccessToken(user.token);
 
         FB.api('/'+req.body.id,'GET',function(r) {
+
+          if(!r.messages) {
+            res.send([]);
+            return;
+          }
           var array       =   "";
-          console.log(r.messages.length);
+          console.log(r.messages);
 
           for (var i = 0; i < r.messages.data.length; i++) { 
               array += r.messages.data[i].message + " ";
