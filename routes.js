@@ -66,8 +66,6 @@ module.exports = function(express, app, passport) {
   });
 
   router.post('/analyse', ensureAuthenticated, function(req, res){
-    res.location("/step3");
-
     User.findById(req.session.passport.user, function(err, user) {
       if (err){
         res.send(err);
@@ -90,6 +88,13 @@ module.exports = function(express, app, passport) {
         });      
       }
     });
+  });
+
+  router.post('/ana', ensureAuthenticated, function(req, res, next) {
+    req.dataProcessed = req.body;
+    return next();
+  }, function(req, res) {
+    res.redirect("/step3");
   });
 
   router.get('/account', ensureAuthenticated, function(req, res){
