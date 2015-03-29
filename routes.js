@@ -105,7 +105,9 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
             request(link, function(err, headers, body) {
                 if(err) return;
 
-                 for (var i = 0; i < JSON.parse(body).data.length; i++) {
+                body = JSON.parse(body);
+
+                 for (var i = 0; i < body.data.length; i++) {
                     count++;
                     data.push([body.data[i].created_time,sentiment(body.data[i].message).score]);
 
