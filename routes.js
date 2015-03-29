@@ -85,22 +85,21 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         var array       =   "";
         console.log(r.messages);
 
-        for (var i = 0; i < r.messages.data.length; i++) { 
-          array += r.messages.data[i].message + " ";
-        }
-        var r1 = sentiment(array);
-          //res.send(r1);
+        var data = [["Date", "Score"]];
 
-          res.send([
-            ["a","b"],
-            ["01/01", 1],
-            ["02/01", 2],
-            ["03/01", 3],            
-            ["04/01", 4],            
-            ["05/01", 5],            
-            ["06/01", 6]
-            ]);
-        });      
+        for(var times = 0; times < 5; times++) {
+          //for (var i = 0; i < r.messages.data.length; i++) { 
+            //array += r.messages.data[i].message + " ";
+          //}
+          //var r1 = sentiment(array);
+          
+          data.push([times,times*times]);
+        }
+
+        res.send(data);
+
+        });   
+        }
     }
   });
 });
