@@ -99,7 +99,6 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var data = [];
       var TARGET = 200;
       var count = 0;
-      var anyLeft = true;
       var processing = 0, done = 0;
 
         function traverse(link) {
@@ -132,6 +131,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
 
             if(resp.messages.data && resp.messages.paging.next) {
                   processing++;
+                  console.log(resp.messages.paging.next);
                   traverse(resp.messages.paging.next);
             }
         }
