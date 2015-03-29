@@ -122,7 +122,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
 
             if(!completed && (count > TARGET)){
                 completed = true;
-                data.sort(function(a, b){return new Date(a[0])-new Date(b[0])});
+                data.sort(function(a, b){return new Date(b[0])-new Date(a[0])});
                 return res.send([["Date", "Score"]].concat(data));
             }
         }
