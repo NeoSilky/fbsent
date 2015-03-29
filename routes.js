@@ -5,8 +5,8 @@ module.exports = function(express, app, passport) {
   var router = express.Router();
 
   router.get('/logout', function(req, res){
-      req.logout();
-      res.redirect('/');
+    req.logout();
+    res.redirect('/');
   });
 
   router.get('/auth', passport.authenticate('facebook',  { scope: 'read_mailbox' }));
@@ -45,18 +45,18 @@ module.exports = function(express, app, passport) {
           var text=[];
 
           for (var i = 0; i < r.data.length; i++) { 
-              if(r.data[i].participants.data.length > 2) continue;
+            if(r.data[i].participants.data.length > 2) continue;
 
-              var index           = (r.data[i].participants.data[0].id == user.oauthID) ? 1 : 0;
-              var data_pos        = r.data[i];
-              var friend_details  = data_pos.participants.data[index];
-              text.push({
-                thread_id: data_pos.id,
-                friend_id: friend_details.id,
-                friend_name: friend_details.name,
-		            updated_time: data_pos.updated_time,
-                count: data_pos.message_count
-              });
+            var index           = (r.data[i].participants.data[0].id == user.oauthID) ? 1 : 0;
+            var data_pos        = r.data[i];
+            var friend_details  = data_pos.participants.data[index];
+            text.push({
+              thread_id: data_pos.id,
+              friend_id: friend_details.id,
+              friend_name: friend_details.name,
+              updated_time: data_pos.updated_time,
+              count: data_pos.message_count
+            });
           }
 
           res.send(text);
@@ -65,51 +65,61 @@ module.exports = function(express, app, passport) {
     });
   });
 
-  router.post('/analyse', ensureAuthenticated, function(req, res){
-    User.findById(req.session.passport.user, function(err, user) {
-      if (err){
-        res.send(err);
-        return;
-      }
+router.post('/analyse', ensureAuthenticated, function(req, res){
+  User.findById(req.session.passport.user, function(err, user) {
+    if (err){
+      res.send(err);
+      return;
+    }
 
-      if (user) {
-        var FB = require('fb');
-        FB.setAccessToken(user.token);
+    if (user) {
+      var FB = require('fb');
+      FB.setAccessToken(user.token);
 
-        FB.api('/'+req.body.id,'GET',function(r) {
+      FB.api('/'+req.body.id,'GET',function(r) {
 
-          if(!r.messages) {
-            res.send([]);
-            return;
-          }
-          var array       =   "";
-          console.log(r.messages);
-
-          for (var i = 0; i < r.messages.data.length; i++) { 
-              array += r.messages.data[i].message + " ";
-          }
-          var r1 = sentiment(array);
-          res.send(r1);
-        });      
-      }
-    });
-  });
-
-  router.get('/account', ensureAuthenticated, function(req, res){
-    User.findById(req.session.passport.user, function(err, user) {
-      if(err) { 
-        	console.log(err); 
-          res.redirect("failed.html");
+        if(!r.messages) {
+          res.send([]);
           return;
-      }
-    });
-    res.redirect("/step2");
-  });
+        }
+        var array       =   "";
+        console.log(r.messages);
 
-  app.use(router);
+        for (var i = 0; i < r.messages.data.length; i++) { 
+          array += r.messages.data[i].message + " ";
+        }
+        var r1 = sentiment(array);
+          //res.send(r1);
+
+          res.send([
+            ["a","b"],
+            ["01/01", 1],
+            ["02/01", 2],
+            ["03/01", 3],            
+            ["04/01", 4],            
+            ["05/01", 5],            
+            ["06/01", 6]
+            ]);
+        });      
+    }
+  });
+});
+
+router.get('/account', ensureAuthenticated, function(req, res){
+  User.findById(req.session.passport.user, function(err, user) {
+    if(err) { 
+     console.log(err); 
+     res.redirect("failed.html");
+     return;
+   }
+ });
+  res.redirect("/step2");
+});
+
+app.use(router);
 }
 
 function ensureAuthenticated(req, res, next) {
-  	if (req.isAuthenticated() && req.session.passport.user) { return next(); }
-  	res.redirect('/');
+ if (req.isAuthenticated() && req.session.passport.user) { return next(); }
+ res.redirect('/');
 }
