@@ -29,7 +29,7 @@ module.exports = function(express, app, passport) {
   router.get('/auth', passport.authenticate('facebook',  { scope: 'read_mailbox' }));
 
   router.get('/auth/callback', passport.authenticate('facebook', { 
-  	successRedirect: '/account',
+  	successRedirect: '/step2',
     failureRedirect: '/',
     scope: 'read_mailbox'
   }));
@@ -38,7 +38,7 @@ module.exports = function(express, app, passport) {
     var user            = req.user;
     user.token = undefined;
     user.save(function(err) {
-      res.redirect('/account');
+      res.redirect('/');
     });
   });
 
@@ -116,17 +116,6 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         });   
         }
   });
-});
-
-router.get('/account', ensureAuthenticated, function(req, res){
-  User.findById(req.session.passport.user, function(err, user) {
-    if(err) { 
-     console.log(err); 
-     res.redirect("failed.html");
-     return;
-   }
- });
-  res.redirect("/step2");
 });
 
 app.use(router);
