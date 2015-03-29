@@ -19,8 +19,7 @@ module.exports = function(passport) {
         passReqToCallback: true
     },
     function(req, token, refreshToken, profile, done) {
-       // process.nextTick(function() {
-          // check if the user is already logged in
+        process.nextTick(function() {
             if (!req.user) {
                 User.findOne({ 'oauthID' : profile.id }, function(err, user) {
                     if (err)
@@ -78,6 +77,6 @@ module.exports = function(passport) {
                 });
 
             }
-        //});
+        });
     }));
 };
