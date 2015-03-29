@@ -19,7 +19,7 @@
     <script type="text/javascript">
     	var array = [];
 
-      	google.setOnLoadCallback(drawChart);
+      	google.setOnLoadCallback(getData);
 
       	function drawChart() {
         	var data = google.visualization.arrayToDataTable(array);
@@ -36,8 +36,6 @@
 
         	chart.draw(data, options);
         }
-
-        getData();
 
 	    function getData(){
         var a = location.href; 
