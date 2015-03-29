@@ -98,7 +98,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
 //        for(var times = 0; times < 5; times++) {
           for (var i = 0; i < r.messages.data.length; i++) { 
             array += r.messages.data[i].message + " ";
-            data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
+            data.push([new Date(r.messages.data[i].created_time).toDateString(),sentiment(r.messages.data[i].message).score]);
           }
   //      }
         res.send(data);
