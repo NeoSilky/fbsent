@@ -13,8 +13,8 @@ module.exports = function(express, app, passport) {
     res.render('step2');
   });
 
-  router.get('/step3', ensureAuthenticated, function(req, res) {
-    res.render('step3', { threadId: req.body.id });
+  router.get('/step3/:slug', ensureAuthenticated, function(req, res){
+      res.render('step3', { threadId: req.params.slug });
   });
 
   router.get('/about', function(req, res) {
