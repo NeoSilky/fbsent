@@ -23,10 +23,12 @@
 
       	function drawChart() {
         	var data = google.visualization.arrayToDataTable(array);
+          var showEvery = parseInt(data.getNumberOfRows() / 4);
 
         	var options = {
           		title: 'Score Over Time',
           		curveType: 'function',
+              hAxis: {showTextEvery: showEvery},
           		legend: { position: 'bottom' }
         	};
 
