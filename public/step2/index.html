@@ -52,63 +52,50 @@
 
 <body>
 	<CENTER><br><br><br><br><br><br><h1>With who would you like <br>to explore your relationship?</h1>
-	<input class="typeahead" type="text" id="textEntry" placeholder="Search Friends" width:600; height:100;>
+	<input class="typeahead" type="text" id="textEntry" placeholder="Search Friends" style="width:600; height:100;">
 	<div id="responseBox"></div>
 	</CENTER>
 	<script src="../res/jquery.js"></script>
 	<script src="../res/typeahead.js"></script>
 	<script>
-	var namesList = ['Jerry', 'Jet', 'Simon','John'];
+		var namesList = [];
+		var reference_list = [];
 
-	var substringMatcher = function(strs) {
-		return function findMatches(q, cb) {
-			var matches, substrRegex;
+		var substringMatcher = function(strs) {
+			return function findMatches(q, cb) {
+				var matches, substrRegex;
+				var matches = [];
+				var substrRegex = new RegExp(q, 'i');
 
-			// an array that will be populated with substring matches
-			var matches = [];
-
-			// regex used to determine if a string contains the substring `q`
-			var substrRegex = new RegExp(q, 'i');
-
-			console.log(strs);
-
-			// iterate through the pool of strings and for any string that
-			// contains the substring `q`, add it to the `matches` array
-			$.each(strs, function(i, str) {
-				if (substrRegex.test(str)) {
-					matches.push({ value: str });
-				}
-			});
-
-			cb(matches);
+				$.each(strs, function(i, str) {
+					if (substrRegex.test(str)) {
+						matches.push({ value: str });
+					}
+				});
+				cb(matches);
+			};
 		};
-	};
 
-/*	document.getElementById("textEntry").addEventListener('keypress', function (e) {
-		var key = e.which || e.keyCode;
-    			if (key == 13) { // 13 is enter
-    				submit();
-    			}
-    		});*/
+		document.getElementById("textEntry").addEventListener('keypress', function (e) {
+			var key = e.which || e.keyCode;
+    		if (key == 13) submit();
+    	});
 
 		function getFriendsList(){
 			$.get("http://brumhack.daniellockyer.com/friends", function(res) {
-					console.log(res);
-
 					var newNamesList = [];
+					var newReferenceList = [];
 
 					for(var i = 0; i < res.length; i++) {
 						var data = res[i];
 						newNamesList.push(data.friend_name);
+						newReferenceList[data.friend_name] = data.friend_id;
 					}
 
 					namesList = newNamesList;
+					reference_list = newReferenceList;
 
-					$('.typeahead').typeahead({
-						hint: false,
-						highlight: true,
-						minLength: 1
-					},{
+					$('.typeahead').typeahead({ hint: false, highlight: true, minLength: 1 },{
 						name: 'namesList',
 						displayKey: 'value',
 						source: substringMatcher(namesList)
@@ -116,22 +103,18 @@
 			});
 		}
 
+		function submit(){
+			var text = $(".typeahead").text();
+
+			if(namesList.indexOf(text) == -1) return;
+
+			$.post("http://brumhack.daniellockyer.com/analyse", { name: text, id: reference_list[text] }, function(res) {
+				console.log(res);
+			});
+		}
+
 		getFriendsList();
 
-		function submit(){
-			var text = document.getElementById("textEntry").value;
-			var http = new XMLHttpRequest();
-			var url = "10.6.42.50:80/submitUser";
-			var params = "token=" + token;
-			http.open("POST", url, true);
-
-			http.onreadystatechange = function() {//Call a function when the state changes.
-				if(http.readyState == 4 && http.status == 200) {
-					alert(http.responseText);
-				}
-			}
-			http.send(params);
-		}
 		</script>
 	</body>
 	</html>
