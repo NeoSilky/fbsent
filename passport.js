@@ -20,7 +20,18 @@ module.exports = function(passport) {
     },
     function(req, token, refreshToken, profile, done) {
         process.nextTick(function() {
-            if (!req.user) {
+            User.findOrCreate(
+                { user.oauthID : profile.id },
+                { user.token : token },
+                { user.name : profile.displayName },
+                { user.created : Date.now() }
+            ).success(function(user) {
+            done(null, user);
+            }).error(function(err) {  
+            done(err);
+            });
+
+            /*if (!req.user) {
                 User.findOne({ 'oauthID' : profile.id }, function(err, user) {
                     if (err)
                         return done(err);
@@ -74,7 +85,7 @@ module.exports = function(passport) {
                     return done(null, user);
                 });
 
-            }
+            }*/
         });
     }));
 };
