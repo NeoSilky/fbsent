@@ -102,29 +102,23 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var anyLeft = true;
       var processing = 0, done = 0;
 
-        function parseData(r) {
-            for (var i = 0; i < r.data.length; i++) {
-                count++;
-                data.push([r.data[i].created_time,sentiment(r.data[i].message).score]);
-
-                if(r.paging && r.paging.next) {
-                  processing++;
-                  traverse(r.paging.next);
-                }
-            }
-        }
-
         function traverse(link) {
-            if(link) {
-                request(link, function(err, headers, body) {
-                    parseData(body);
-                    done++;
-                });
-            }
+            request(link, function(err, headers, body) {
+                 for (var i = 0; i < body.data.length; i++) {
+                    count++;
+                    data.push([body.data[i].created_time,sentiment(body.data[i].message).score]);
+
+                    if(body.paging && body.paging.next) {
+                      processing++;
+                      traverse(r.paging.next);
+                    }
+                }
+                done++;
+            });
 
             if(count > TARGET || done == processing){
                 console.log(data.length);
-                res.send([["Date", "Score"]].concat(data));
+                return res.send([["Date", "Score"]].concat(data));
             }
         }
 
