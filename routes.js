@@ -96,7 +96,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
           return;
         }
         var array       =   "";
-        var data = [["Date", "Score"]];
+        var data = [];
         var next = "";
 
         console.log(r.messages.data.length);
@@ -105,7 +105,8 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
           array += r.messages.data[i].message + " ";
           data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
         }
-        res.send(data);
+        data.reverse();
+        res.send([["Date", "Score"]].concat(data));
         });   
         }
   });
