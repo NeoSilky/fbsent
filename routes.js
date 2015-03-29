@@ -97,15 +97,13 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       }
 
       var data = [];
-      var TARGET = 200;
+      var TARGET = 25;
       var count = 0;
       var processing = 0, done = 0;
 
         function traverse(link) {
             request(link, function(err, headers, body) {
                 if(err) return;
-
-                console.log(body);
 
                  for (var i = 0; i < body.data.length; i++) {
                     count++;
@@ -119,7 +117,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
                 done++;
             });
 
-            if(count > TARGET || done == processing){
+            if(count > TARGET){
                 console.log(data.length);
                 return res.send([["Date", "Score"]].concat(data));
             }
