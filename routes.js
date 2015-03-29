@@ -99,6 +99,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var data = [];
       var TARGET = 50;
       var count = 0;
+      var completed = false;
       var processing = 0, done = 0;
 
         function traverse(link) {
@@ -119,7 +120,8 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
                 done++;
             });
 
-            if(count > TARGET && processing == done){
+            if(!completed && (count > TARGET || processing == done)){
+              completed = true;
                 return res.send([["Date", "Score"]].concat(data));
             }
         }
