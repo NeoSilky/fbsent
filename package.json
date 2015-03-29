@@ -17,6 +17,7 @@
     "sentiment":"latest",
     "bson":"latest",
     "nodemon":"latest",
-    "fb":"latest"	    
+    "fb":"latest",
+    "request":"latest"	    
   }
 }

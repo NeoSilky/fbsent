@@ -1,5 +1,6 @@
 var User          = require('./user.js');
 var sentiment = require('sentiment');
+var request = require('request');
 
 module.exports = function(express, app, passport) {
   var router = express.Router();
@@ -86,13 +87,24 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         console.log(r.messages);
 
         var data = [["Date", "Score"]];
+        var next = "";
+
+        if(r.paging.next) {
+          request(r.paging.next, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              console.log(body); 
+            }
+
+
+          }));
+        }
 
         for(var times = 0; times < 5; times++) {
-          //for (var i = 0; i < r.messages.data.length; i++) { 
-            //array += r.messages.data[i].message + " ";
-          //}
+          for (var i = 0; i < r.messages.data.length; i++) { 
+            array += r.messages.data[i].message + " ";
+            console.log(r.messages.data[i]);
+          }
           //var r1 = sentiment(array);
-          
           data.push([times,times*times]);
         }
 
