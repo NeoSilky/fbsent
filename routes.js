@@ -9,12 +9,12 @@ module.exports = function(express, app, passport) {
     res.render('step1.ejs');
   });
 
-  router.get('/', function(req, res) {
-    res.render('step1.ejs');
+  router.get('/step2',ensureAuthenticated, function(req, res) {
+    res.render('step2.ejs');
   });
 
-  router.get('/', function(req, res) {
-    res.render('step1.ejs');
+  router.get('/step3', ensureAuthenticated, function(req, res) {
+    res.render('step3.ejs');
   });
 
   router.get('/about', function(req, res) {
