@@ -105,14 +105,16 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         function traverse(link) {
             request(link, function(err, headers, body) {
                 if(err) return;
-                
+
+                console.log(body);
+
                  for (var i = 0; i < body.data.length; i++) {
                     count++;
                     data.push([body.data[i].created_time,sentiment(body.data[i].message).score]);
 
                     if(body.paging && body.paging.next) {
                       processing++;
-                      traverse(r.paging.next);
+                      traverse(body.paging.next);
                     }
                 }
                 done++;
