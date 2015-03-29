@@ -97,7 +97,6 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       }
 
       var data = [];
-      var next = "";
       var TARGET = 200;
       var count = 0;
       var anyLeft = true;
@@ -107,7 +106,8 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
             for (var i = 0; i < r.messages.data.length; i++) {
                 count++;
                 data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
-                if(r.messages.paging.next) {
+
+                if(r.messages.data && r.messages.paging.next) {
                   processing++;
                   traverse(r.messages.paging.next);
                 }
@@ -127,6 +127,8 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
                 res.send([["Date", "Score"]].concat(data));
             }
         }
+
+        console.log(r);
 
         parseData(r);
     });   
