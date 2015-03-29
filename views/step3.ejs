@@ -28,7 +28,12 @@
         	var options = {
           		title: 'Score Over Time',
           		curveType: 'function',
-              hAxis: {showTextEvery: showEvery},
+              hAxis: {
+                showTextEvery: showEvery,
+                direction:-1,
+                slantedText:true,
+                slantedTextAngle:90
+              },
           		legend: { position: 'bottom' }
         	};
 
