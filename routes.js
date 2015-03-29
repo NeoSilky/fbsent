@@ -7,11 +7,11 @@ module.exports = function(express, app, passport) {
 
   router.get('/', function(req, res) {
     res.render('step1');
-  });
+});
 
   router.get('/step2',ensureAuthenticated, function(req, res) {
     res.render('step2');
-  });
+});
 
   router.get('/step3/:slug', ensureAuthenticated, function(req, res){
       res.render('step3', { threadId: req.params.slug });
@@ -19,12 +19,12 @@ module.exports = function(express, app, passport) {
 
   router.get('/about', function(req, res) {
     res.render('about');
-  });
+});
 
   router.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
-  });
+});
 
   router.get('/auth', passport.authenticate('facebook',  { scope: 'read_mailbox' }));
 
@@ -32,15 +32,15 @@ module.exports = function(express, app, passport) {
   	successRedirect: '/step2',
     failureRedirect: '/',
     scope: 'read_mailbox'
-  }));
+}));
 
   router.get('/unlink', ensureAuthenticated, function(req, res) {
     var user            = req.user;
     user.token = undefined;
     user.save(function(err) {
       res.redirect('/');
-    });
   });
+});
 
   router.get('/friends', ensureAuthenticated, function(req, res){
     User.findById(req.session.passport.user, function(err, user) {
@@ -48,9 +48,9 @@ module.exports = function(express, app, passport) {
       if (err){
         res.send(err);
         return;
-      }
+    }
 
-      if (user) {
+    if (user) {
         var FB = require('fb');
         FB.setAccessToken(user.token);
 
@@ -70,23 +70,23 @@ module.exports = function(express, app, passport) {
               friend_name: friend_details.name,
               updated_time: data_pos.updated_time,
               count: data_pos.message_count
-            });
-          }
+          });
+        }
 
-          res.send(text);
-        });
-      }
+        res.send(text);
     });
-  });
+    }
+});
+});
 
 router.post('/analyse', ensureAuthenticated, function(req, res){
   User.findById(req.session.passport.user, function(err, user) {
     if (err){
       res.send(err);
       return;
-    }
+  }
 
-    if (user) {
+  if (user) {
       var FB = require('fb');
       FB.setAccessToken(user.token);
 
@@ -94,28 +94,50 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         if(!r.messages) {
           res.send([]);
           return;
+      }
+
+      var data = [];
+      var next = "";
+      var TARGET = 200;
+      var count = 0;
+      var anyLeft = true;
+      var processing = 0, done = 0;
+
+        function parseData(r) {
+            for (var i = 0; i < r.messages.data.length; i++) {
+                count++;
+                data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
+                if(r.messages.paging.next) {
+                  processing++;
+                  traverse(r.messages.paging.next);
+                }
+            }
         }
 
-        var data = [];
-        var next = "";
+        function traverse(link) {
+            if(link) {
+                $.get(link, function(r) {
+                    parseData(r);
+                    done++;
+                });
+            }
 
-        for (var i = 0; i < r.messages.data.length; i++) {
-          console.log(r.messages.paging.next);
+            if(count > TARGET || done == processing){
+                console.log(data.length);
+                res.send([["Date", "Score"]].concat(data));
+            }
+        }
 
-          //array += r.messages.data[i].message + " ";
-          data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
-        }
-        //data.reverse();
-        res.send([["Date", "Score"]].concat(data));
-        });   
-        }
-  });
+        parseData(r);
+    });   
+  }
+});
 });
 
 app.use(router);
 }
 
 function ensureAuthenticated(req, res, next) {
- if (req.isAuthenticated() && req.session.passport.user) { return next(); }
- res.redirect('/');
+   if (req.isAuthenticated() && req.session.passport.user) { return next(); }
+   res.redirect('/');
 }
