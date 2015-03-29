@@ -95,11 +95,13 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
           res.send([]);
           return;
         }
-   //     var array       =   "";
+
         var data = [];
         var next = "";
 
-        for (var i = 0; i < r.messages.data.length; i++) { 
+        for (var i = 0; i < r.messages.data.length; i++) {
+          console.log(r.paging);
+
           //array += r.messages.data[i].message + " ";
           data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
         }
