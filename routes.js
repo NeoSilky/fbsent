@@ -84,27 +84,23 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
           return;
         }
         var array       =   "";
-        console.log(r.messages);
-
         var data = [["Date", "Score"]];
         var next = "";
 
-        if(r.paging && r.paging.next) {
+    /*    if(r.paging && r.paging.next) {
           request(r.paging.next, function (error, response, body) {
             if (!error && response.statusCode == 200) {
               console.log(body); 
             }
           });
         }
-
-        for(var times = 0; times < 5; times++) {
+*/
+//        for(var times = 0; times < 5; times++) {
           for (var i = 0; i < r.messages.data.length; i++) { 
             array += r.messages.data[i].message + " ";
-            data.push([r.messages.data[i].created_time,times*times]);
+            data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
           }
-          var r1 = sentiment(array);
-          console.log(r1);
-        }
+  //      }
         res.send(data);
         });   
         }
