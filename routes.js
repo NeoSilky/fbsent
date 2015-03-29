@@ -53,7 +53,7 @@ module.exports = function(express, app, passport) {
         var FB = require('fb');
         FB.setAccessToken(user.token);
 
-        FB.api('/me/threads', 'GET', {fields: 'id,message_count,updated_time,participants'}, function(r) {
+        FB.api('/me/threads', 'GET', {fields: 'id,message_count,updated_time,participants', limit:200}, function(r) {
           var text=[];
 
           for (var i = 0; i < r.data.length; i++) { 
