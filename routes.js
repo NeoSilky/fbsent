@@ -116,7 +116,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
 
         function traverse(link) {
             if(link) {
-                $.get(link, function(r) {
+                request(link, function(err, headers, r) {
                     parseData(r);
                     done++;
                 });
