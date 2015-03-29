@@ -114,7 +114,7 @@ module.exports = function(express, app, passport) {
           return;
       }
     });
-    res.redirect("/download.html");
+    res.redirect("/step2");
   });
 
   app.use(router);
