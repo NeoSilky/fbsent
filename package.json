@@ -18,6 +18,7 @@
     "bson":"latest",
     "nodemon":"latest",
     "fb":"latest",
-    "request":"latest"	    
+    "request":"latest",
+    "ejs":"latest"	    
   }
 }
