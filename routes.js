@@ -99,6 +99,8 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
         var data = [["Date", "Score"]];
         var next = "";
 
+        console.log(r.messages.data.length);
+
         for (var i = 0; i < r.messages.data.length; i++) { 
           array += r.messages.data[i].message + " ";
           data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
