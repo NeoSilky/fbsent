@@ -43,7 +43,7 @@
 
 	    	$.post('http://brumhack.daniellockyer.com/analyse', {id: b}, function(r) {
 	    		console.log(r);
-				  array = r.data;
+				  array = r;
 				  drawChart();
 	    	});
 		}
