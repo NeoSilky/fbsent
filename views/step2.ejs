@@ -55,7 +55,11 @@
 <body>
 	<script src="../res/jquery.js"></script>
 	<script src="../res/typeahead.js"></script>
-	<script>
+
+	<CENTER><br><br><br><br><br><br><h1>With whom would you like <br>to explore your relationship?</h1>
+	<input class="typeahead" type="text" id="textEntry" placeholder="Search Friends" style="width:600px; height:100px;">
+	</CENTER>
+		<script>
 		var namesList = [];
 		var reference_list = [];
 
@@ -111,9 +115,6 @@
 		getFriendsList();
 
 		</script>
-	<CENTER><br><br><br><br><br><br><h1>With whom would you like <br>to explore your relationship?</h1>
-	<input class="typeahead" type="text" id="textEntry" placeholder="Search Friends" style="width:600px; height:100px;">
-	</CENTER>
 	<%- include credits.ejs %>
 </body>
 </html>
