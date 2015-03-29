@@ -109,7 +109,7 @@
 
 			if(namesList.indexOf(text) == -1) return;
 
-			$.get("http://brumhack.daniellockyer.com/step3", { id: text }, function(r) {
+			$.get("http://brumhack.daniellockyer.com/step3/"+ text , function(r) {
 				console.log(r);
 			});
 		}
