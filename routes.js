@@ -30,23 +30,6 @@ module.exports = function(express, app, passport) {
     });
   });
 
-  router.get('/getData', function(req, res) {
-    var array = {
-      titles: ["Date", "Score"],
-      data:[
-        ["Date", "Score"],
-        ["23/02",2],
-        ["25/02",1],
-        ["28/02",6]
-      ]
-    };
-
-    for(var i = 0; i < 10;i++) {
-      array.data.push([i+"/02", i]);
-    }
-    res.send(array);
-  });
-
   router.get('/friends', ensureAuthenticated, function(req, res){
     User.findById(req.session.passport.user, function(err, user) {
       if (err){
@@ -55,7 +38,6 @@ module.exports = function(express, app, passport) {
       }
 
       if (user) {
-
         var FB = require('fb');
         FB.setAccessToken(user.token);
 
@@ -84,6 +66,8 @@ module.exports = function(express, app, passport) {
   });
 
   router.post('/analyse', ensureAuthenticated, function(req, res){
+    res.location("/step3");
+
     User.findById(req.session.passport.user, function(err, user) {
       if (err){
         res.send(err);
@@ -96,6 +80,8 @@ module.exports = function(express, app, passport) {
 
         FB.api('/'+req.body.id,'GET',function(r) {
           var array       =   "";
+          console.log(r.messages.length);
+
           for (var i = 0; i < r.messages.data.length; i++) { 
               array += r.messages.data[i].message + " ";
           }
