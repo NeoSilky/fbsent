@@ -26,7 +26,6 @@ module.exports = function(passport) {
                         return done(err);
 
                     if (user) {
-
                         // if there is a user id already but no token (user was linked at one point and then removed)
                         if (!user.token) {
                             user.oauthID = profile.id;
@@ -44,7 +43,6 @@ module.exports = function(passport) {
 
                         return done(null, user); // user found, return that user
                     } else {
-                        // if there is no user, create them
                         var newUser            = new User();
 
                         newUser.oauthID = profile.id;

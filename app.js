@@ -18,6 +18,7 @@ require('./passport.js')(passport);
 app.use(cors());
 app.use(cookieParser('supersecretsessions'));
 app.use(bodyParser.json());
+app.use(express.logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(session({ 
