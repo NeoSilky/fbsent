@@ -109,7 +109,9 @@
 
 			if(namesList.indexOf(text) == -1) return;
 
-			window.location = "/step3?" + reference_list[text];
+			$.post("http://brumhack.daniellockyer.com/step3", { id: text }, function(r) {
+				console.log(r);
+			});
 		}
 
 		getFriendsList();

@@ -6,19 +6,19 @@ module.exports = function(express, app, passport) {
   var router = express.Router();
 
   router.get('/', function(req, res) {
-    res.render('step1.ejs');
+    res.render('step1');
   });
 
   router.get('/step2',ensureAuthenticated, function(req, res) {
-    res.render('step2.ejs');
+    res.render('step2');
   });
 
-  router.get('/step3', ensureAuthenticated, function(req, res) {
-    res.render('step3.ejs');
+  router.post('/step3', ensureAuthenticated, function(req, res) {
+    res.render('step3', { threadId: req.body.id });
   });
 
   router.get('/about', function(req, res) {
-    res.render('about.ejs');
+    res.render('about');
   });
 
   router.get('/logout', function(req, res){

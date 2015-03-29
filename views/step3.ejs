@@ -38,10 +38,7 @@
         }
 
 	    function getData(){
-        var a = location.href; 
-        var b = a.substring(a.indexOf("?")+1);
-
-	    	$.post('http://brumhack.daniellockyer.com/analyse', {id: b}, function(r) {
+	    	$.post('http://brumhack.daniellockyer.com/analyse', {id: <%= threadId %>}, function(r) {
 				  array = r;
 				  drawChart();
 	    	});

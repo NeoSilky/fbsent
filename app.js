@@ -19,6 +19,7 @@ app.use(cors());
 app.use(cookieParser('supersecretsessions'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
 app.use(session({ 
 	secret: 'supersecretsessions', 
 	resave: true, 
