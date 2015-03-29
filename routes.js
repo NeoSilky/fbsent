@@ -90,8 +90,8 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var FB = require('fb');
       FB.setAccessToken(user.token);
 
-      FB.api('/'+req.body.id,'GET', function(r) {
-        if(!r.messages) {
+      FB.api('/'+req.body.id,'GET', function(resp) {
+        if(!resp.messages) {
           res.send([]);
           return;
       }
@@ -102,35 +102,39 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
       var anyLeft = true;
       var processing = 0, done = 0;
 
-        function parseData(r) {
-            for (var i = 0; i < r.messages.data.length; i++) {
-                count++;
-                data.push([r.messages.data[i].created_time,sentiment(r.messages.data[i].message).score]);
-
-                if(r.messages.data && r.messages.paging.next) {
-                  processing++;
-                  traverse(r.messages.paging.next);
-                }
-            }
-        }
-
         function traverse(link) {
-            if(link) {
-                request(link, function(err, headers, r) {
-                    parseData(r);
-                    done++;
-                });
-            }
+            request(link, function(err, headers, body) {
+                if(err) return;
+
+                console.log(body);
+
+                 for (var i = 0; i < body.data.length; i++) {
+                    count++;
+                    data.push([body.data[i].created_time,sentiment(body.data[i].message).score]);
+
+                    if(body.paging && body.paging.next) {
+                      processing++;
+                      traverse(body.paging.next);
+                    }
+                }
+                done++;
+            });
 
             if(count > TARGET || done == processing){
                 console.log(data.length);
-                res.send([["Date", "Score"]].concat(data));
+                return res.send([["Date", "Score"]].concat(data));
             }
         }
 
-        console.log(r);
+        for (var i = 0; i < resp.messages.data.length; i++) {
+            count++;
+            data.push([resp.messages.data[i].created_time,sentiment(resp.messages.data[i].message).score]);
 
-        parseData(r);
+            if(resp.messages.data && resp.messages.paging.next) {
+                  processing++;
+                  traverse(resp.messages.paging.next);
+            }
+        }
     });   
   }
 });
