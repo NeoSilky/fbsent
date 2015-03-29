@@ -96,7 +96,7 @@ router.post('/analyse', ensureAuthenticated, function(req, res){
             }
 
 
-          }));
+          });
         }
 
         for(var times = 0; times < 5; times++) {
