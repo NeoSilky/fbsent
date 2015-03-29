@@ -94,7 +94,7 @@ module.exports = function(express, app, passport) {
     req.dataProcessed = req.body;
     return next();
   }, function(req, res) {
-    res.redirect("/step3");
+    res.location("/step3");
   });
 
   router.get('/account', ensureAuthenticated, function(req, res){
