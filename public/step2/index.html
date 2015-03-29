@@ -59,6 +59,7 @@
 	<script src="../res/typeahead.js"></script>
 	<script>
 	var namesList = ['Jerry', 'Jet', 'Simon','John'];
+	var reference_list = [];
 	//getFriendsList();
 
 	var substringMatcher = function(strs) {
@@ -112,7 +113,19 @@ function getFriendsList(){
 	http.onreadystatechange = function() {
 		if(http.readyState == 4 && http.status == 200) {
 			console.log(http.responseText);
-			namesList = http.responseText;
+
+			var newNamesList = [];
+			var newReferenceList = [];
+
+			for(var i = 0; i < http.responseText.length;i++) {
+				var data = http.responseText[i];
+
+				newNamesList.push(data.friend_name);
+				newReferenceList[data.friend_name] = data.friend_id;
+			}
+
+			namesList = newNamesList;
+			reference_list = newReferenceList;
 		}
 	}
 	http.send();
