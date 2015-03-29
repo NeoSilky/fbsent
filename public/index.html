@@ -5,9 +5,10 @@
 	<style>
 		@font-face { font-family: exte; src: url(res/exte.ttf); }
 		html, body {width:100%;height:100%;overflow: hidden;margin:0;padding:0;}
-		body { background: #3B5997; box-shadow: inset 0 0 20em 1em #444; font-family:exte; color:#fff;font-size:56px; }
+		body { background: #3B5997; box-shadow: inset 0 0 20em 1em #444; font-family:exte; color:#fff; }
 
-		div{ 
+		div.auth{ 
+			font-size:56px;
 			width:320px; 
 			height:150px; 
 			position: absolute; 
@@ -23,12 +24,14 @@
 		}
 		a {color:#fff;text-decoration: none}
 	</style>
+	<link rel="stylesheet" href="res/credits.css" />
 </head>
 <body>
-	<div>
+	<div class="auth">
 		<a href="/auth">
 			<span>Login with<br/>Facebook</span>
 		</a>
 	</div>
+	<div class="by"><p>by <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p160x160/10492046_10204082114155024_405927399992593470_n.jpg?oh=a7d2e16abc2e86153366daeaffddf4ba&oe=55AAE821&__gda__=1437971053_3092d9905574193c1839051ff8f19ad9" class="hoverZoomLink"> Daniel Lockyer &amp; <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/v/t1.0-1/p160x160/10987389_1038875199495189_5569376292823586316_n.jpg?oh=0f992606f9080db4d56edb91f700bdb1&oe=5572DC5E&__gda__=1437465249_b461c95a9c16236ec153409230492645" class="hoverZoomLink"> Jet Holt</p></div>
 </body>
 </html>
