@@ -3,15 +3,32 @@
 <head>
 	<title>Sentiment Analysis</title>
 	<style>
-		@font-face { font-family: lighthouse; src: url(res/exte.ttf); }
+		@font-face { font-family: exte; src: url(res/exte.ttf); }
 		html, body {width:100%;height:100%;overflow: hidden;margin:0;padding:0;}
-		body { background: #3B5997; box-shadow: inset 0 0 20em 1em #444; font-family:lighthouse; color:#fff;font-size:42px; }
-		div{ width:300px; height:200px; position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0; text-align: center; border: 1px solid #fff; }
+		body { background: #3B5997; box-shadow: inset 0 0 20em 1em #444; font-family:exte; color:#fff;font-size:56px; }
+
+		div{ 
+			width:320px; 
+			height:150px; 
+			position: absolute; 
+			margin: auto; 
+			top: 0; 
+			left: 0; 
+			right: 0; 
+			bottom: 0; 
+			text-align: center; 
+			text-shadow: 0 -1px 0 #000; 
+			box-shadow: 0 1px 0 #666, 0 5px 0 #444, 0 6px 6px rgba(0,0,0,0.6);
+			border: 0 none;
+		}
+		a {color:#fff;text-decoration: none}
 	</style>
 </head>
 <body>
-	<div class="">
-		<span>Login with<br/>Facebook</span>
+	<div>
+		<a href="/auth">
+			<span>Login with<br/>Facebook</span>
+		</a>
 	</div>
 </body>
 </html>
