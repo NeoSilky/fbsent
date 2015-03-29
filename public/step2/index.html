@@ -110,6 +110,8 @@
 
 			if(namesList.indexOf(text) == -1) return;
 
+			console.log(reference_list[text]);
+
 			$.post("http://brumhack.daniellockyer.com/analyse", { name: text, id: reference_list[text] }, function(res) {
 				console.log(res);
 			});
